@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Contact} from '../models/contact';
 import {ContactsService} from '../contacts.service';
-import {SelectContactAction, UpdateContactAction} from "../state/contacts/contacts.actions";
+import {UpdateContactAction} from "../state/contacts/contacts.actions";
 import {ApplicationState} from "../state/app.state";
 import {Store} from "@ngrx/store";
-import {map} from "rxjs/operators";
+import {ContactsQuery} from "../state/contacts/contacts.reducer";
 
 @Component({
   selector: 'trm-contacts-editor',
@@ -24,8 +24,7 @@ export class ContactsEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select(state => state.contacts.list.find(c => +c.id === +state.contacts.selectedContactId))
-      .pipe(map(contact => Object.assign({}, contact))) // create a new object
+    this.store.select(ContactsQuery.getSelectedContact)
       .subscribe(contact => this.contact = contact);
   }
 

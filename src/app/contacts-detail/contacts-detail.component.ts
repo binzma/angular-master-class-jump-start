@@ -5,6 +5,7 @@ import {Contact} from '../models/contact';
 import {ApplicationState} from "../state/app.state";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
+import {ContactsQuery} from "../state/contacts/contacts.reducer";
 
 @Component({
   selector: 'trm-contacts-detail',
@@ -22,6 +23,6 @@ export class ContactsDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.contact$ = this.store.select(state => state.contacts.list.find(c => +c.id === +state.contacts.selectedContactId));
+    this.contact$ = this.store.select(ContactsQuery.getSelectedContact);
   }
 }

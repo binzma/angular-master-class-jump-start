@@ -1,5 +1,7 @@
 import {Contact} from '../../models/contact';
 import {ContactsActions, ContactsActionTypes} from "./contacts.actions";
+import {ApplicationState} from "../app.state";
+import {createSelector} from "@ngrx/store";
 
 export interface ContactsState {
   list: Array<Contact>;
@@ -13,6 +15,15 @@ const INITIAL_STATE: ContactsState = {
   loaded: false
 }
 
+export namespace ContactsQuery {
+  export const getContacts = (state: ApplicationState) => state.contacts.list;
+  export const getLoaded = (state: ApplicationState) => state.contacts.loaded;
+  export const getSelectedContactId = (state: ApplicationState) => state.contacts.selectedContactId;
+  export const getSelectedContact = createSelector(getContacts, getSelectedContactId, (contacts, id) => {
+    const contact = contacts.find(c => +c.id === +id);
+    return contact ? Object.assign({}, contact) : undefined;
+  });
+}
 
 export function contactsReducer(state: ContactsState = INITIAL_STATE, action: ContactsActions) {
 

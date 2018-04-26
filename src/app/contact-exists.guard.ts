@@ -6,6 +6,7 @@ import {ContactsService} from "./contacts.service";
 import {AddContactAction, SelectContactAction} from "./state/contacts/contacts.actions";
 import {of} from "rxjs/observable/of";
 import {map, switchMap, take, tap} from "rxjs/operators";
+import {ContactsQuery} from "./state/contacts/contacts.reducer";
 
 @Injectable()
 export class ContactExistsGuard implements CanActivate {
@@ -22,7 +23,7 @@ export class ContactExistsGuard implements CanActivate {
 
     this.store.dispatch(new SelectContactAction(contactId));
 
-    return this.store.select(state => state.contacts.loaded).pipe(
+    return this.store.select(ContactsQuery.getLoaded).pipe(
       take(1),
       switchMap(loaded => {
         if (loaded) {
