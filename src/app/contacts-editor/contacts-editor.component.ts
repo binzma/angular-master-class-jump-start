@@ -24,9 +24,8 @@ export class ContactsEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new SelectContactAction(this.route.snapshot.paramMap.get('id')));
     this.store.select(state => state.contacts.list.find(c => +c.id === +state.contacts.selectedContactId))
-      .pipe(map(contact => <Contact>{...contact})) // use spread operator to create a new object
+      .pipe(map(contact => Object.assign({}, contact))) // create a new object
       .subscribe(contact => this.contact = contact);
   }
 
@@ -35,8 +34,8 @@ export class ContactsEditorComponent implements OnInit {
   }
 
   save(contact: Contact) {
-    this.store.dispatch(new UpdateContactAction(this.contact));
-    this.router.navigate(['/contact', contact.id]);
+    this.store.dispatch(new UpdateContactAction(contact));
+    this.goToDetails(contact);
   }
 
   private goToDetails(contact: Contact) {

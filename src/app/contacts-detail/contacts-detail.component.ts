@@ -4,7 +4,6 @@ import {ContactsService} from '../contacts.service';
 import {Contact} from '../models/contact';
 import {ApplicationState} from "../state/app.state";
 import {Store} from "@ngrx/store";
-import {SelectContactAction} from "../state/contacts/contacts.actions";
 import {Observable} from "rxjs/Observable";
 
 @Component({
@@ -25,12 +24,7 @@ export class ContactsDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    this.store.dispatch(new SelectContactAction(+this.route.snapshot.paramMap.get('id')));
-    this.contact$ = this.store.select(state => {
-      const id = state.contacts.selectedContactId;
-      const contact = state.contacts.list.find(c => c.id === id);
-      return Object.assign({}, contact);
-    });
+    this.contact$ = this.store.select(state => state.contacts.list.find(c => +c.id === +state.contacts.selectedContactId));
 
   }
 }
