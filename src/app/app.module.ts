@@ -21,6 +21,9 @@ import {ROOT_REDUCER} from "./state/app.state";
 import {StoreModule} from "@ngrx/store";
 import {ContactExistsGuard} from "./contact-exists.guard";
 
+import { EffectsModule } from '@ngrx/effects';
+import { ContactsEffectsService } from './state/effects/contacts-effects.service';
+
 @NgModule({
   declarations: [
     ContactsAppComponent,
@@ -34,6 +37,7 @@ import {ContactExistsGuard} from "./contact-exists.guard";
     ContactsMaterialModule,
     FlexLayoutModule,
     StoreModule.forRoot(ROOT_REDUCER),
+    EffectsModule.forRoot([ContactsEffectsService]),
     RouterModule.forRoot(APP_ROUTES),
     HttpClientModule,
     FormsModule

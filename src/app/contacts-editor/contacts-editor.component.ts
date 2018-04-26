@@ -34,7 +34,6 @@ export class ContactsEditorComponent implements OnInit {
 
   save(contact: Contact) {
     this.store.dispatch(new UpdateContactAction(contact));
-    this.goToDetails(contact);
   }
 
   private goToDetails(contact: Contact) {

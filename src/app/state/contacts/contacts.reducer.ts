@@ -39,7 +39,7 @@ export function contactsReducer(state: ContactsState = INITIAL_STATE, action: Co
         ...state,
         selectedContactId: action.payload
       };
-    case ContactsActionTypes.UPDATE_CONTACT:
+    case ContactsActionTypes.UPDATE_CONTACT_SUCCESS:
       return {
         ...state,
         list: state.list.map(contact => +contact.id === +action.payload.id ? {...contact, ...action.payload} : contact)
