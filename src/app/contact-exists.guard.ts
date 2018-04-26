@@ -22,7 +22,7 @@ export class ContactExistsGuard implements CanActivate {
 
     this.store.dispatch(new SelectContactAction(contactId));
 
-    return this.store.select(state => state.contacts.list.find(c => +c.id === +contactId)).pipe(
+    return this.store.select(state => state.contacts.loaded).pipe(
       take(1),
       switchMap(loaded => {
         if (loaded) {

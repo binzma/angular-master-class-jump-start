@@ -21,10 +21,7 @@ export class ContactsDetailComponent implements OnInit {
               private store: Store<ApplicationState>) {
   }
 
-
   ngOnInit() {
-
     this.contact$ = this.store.select(state => state.contacts.list.find(c => +c.id === +state.contacts.selectedContactId));
-
   }
 }

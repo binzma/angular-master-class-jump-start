@@ -20,16 +20,13 @@ export class ContactsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.contacts$ = this.contactsService.getContacts();
 
     this.contacts$ = this.store.select(state => state.contacts.list);
 
     this.contactsService
       .getContacts()
       .subscribe(contacts => {
-        this.store.dispatch(
-          new LoadContactsSuccessAction(contacts)
-        );
+        this.store.dispatch(new LoadContactsSuccessAction(contacts));
       });
 
   }

@@ -36,6 +36,7 @@ export class AddContactAction implements Action {
   }
 }
 
+
 /** Implement LoadContactsSuccessAction here */
 
 export type ContactsActions = LoadContactsSuccessAction | SelectContactAction | UpdateContactAction | AddContactAction;
